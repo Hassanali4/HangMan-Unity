@@ -26,6 +26,7 @@ public class AddObjectToList : MonoBehaviour
             copy.transform.SetParent(content.transform, false);
             copy.transform.localPosition = new Vector3(170, -42, 0);
              yvalue=copy.transform.localPosition.y;
+
         }else if(count > 0)
         {
             //Transform tr = content.transform;
@@ -40,6 +41,5 @@ public class AddObjectToList : MonoBehaviour
             copy.transform.localPosition = new Vector3(170,yvalue , 0);
         }
         count++;
-
     }
 }

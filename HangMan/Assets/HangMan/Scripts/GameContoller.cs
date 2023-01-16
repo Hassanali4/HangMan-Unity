@@ -20,19 +20,19 @@ public class GameContoller : MonoBehaviour
     // To display How many trys did the user have performed
     public Text noOfTrys;
     //public Text noOfTrys_statement;
-    private int trys;
+    //private int trys;
 
     //Tries
     public Text Tries_Statement;
     public Text Tries;
     //To make a Tries List 
     public Transform secondTry;
-    int _j = 0;// counter for inputs
 
     //To show input 
     public Text showGivenInput;
     public Text showGivenInputStatement;
     private AddObjectToList addscroll;
+    [SerializeField] private PrisonerNames prisonerNames;
 
     //A float variable to get the change in time value
     //inside the engine by each frame and display on the screen
@@ -42,16 +42,16 @@ public class GameContoller : MonoBehaviour
     private int fails;
     private bool gameEnd = false;
 
-    private string[] wordsLocal = {" MATT " , " JOANNE " , " ROBERT " , " MARRY JANE " , " DENIS "}; // Commented it out to use the file system to get names from a file inside assets folder
+    private string[] wordsLocal;
     //private string[] words = File.ReadAllLines(@"Assets/Files/Words.txt");
 
-    private int[] myNums = { 3 , 5 , 7 , 8 };
+   // private int[] myNums = { 3 , 5 , 7 , 8 };
 
 
     private void Awake()
     {
         addscroll = GetComponent<AddObjectToList>();
-
+        prisonerNames = GetComponent<PrisonerNames>();
     }
 
 
@@ -76,11 +76,14 @@ public class GameContoller : MonoBehaviour
 
         //sound = GetComponent<SoundManagerScript>();
         //triesCheck = showGivenInput.text;
+
+        wordsLocal = prisonerNames.CurrentNames;
+
         chosenWord = wordsLocal[Random.Range(0, wordsLocal.Length)];
         answer.text = chosenWord;
         //chosenWord = "MATT";
         int newVal = chosenWord.IndexOf("H");
-        Debug.Log(newVal);
+        //Debug.Log(newVal);
         for(int i = 0;i<chosenWord.Length;i++)
         {
             char letter = chosenWord[i];
@@ -139,7 +142,7 @@ public class GameContoller : MonoBehaviour
             //secondTry.Find("No_Of_Inputs_Provided_StatementText").GetComponent<Text>().text = "1";
             //secondTry.Find("No_Of_Inputs_Provided").GetComponent<Text>().text = "2";
             
-            Debug.Log("KeyDown event was triggered " + pressedLetter);
+            //Debug.Log("KeyDown event was triggered " + pressedLetter);
             //check if pressed letter is contained in chosen word
             if(chosenWord.Contains(pressedLetter))
             {
@@ -152,10 +155,10 @@ public class GameContoller : MonoBehaviour
                     //Set new hidden word to everything before the i,
                     //change the i to the letter pressed, everything after the i
                     hiddenWord = hiddenWord.Substring(0, i) + pressedLetter + hiddenWord.Substring(i + 1);
-                    Debug.Log(hiddenWord);
+                    //Debug.Log(hiddenWord);
 
                     chosenWord = chosenWord.Substring(0, i) + "_" + chosenWord.Substring(i + 1);
-                    Debug.Log(chosenWord);
+                    //Debug.Log(chosenWord);
 
                     i = chosenWord.IndexOf(pressedLetter);
                 }
@@ -179,6 +182,7 @@ public class GameContoller : MonoBehaviour
                 FindObjectOfType<AudioManager>().Play("Diying_Sound");
                 gameEnd = true;
                 FindObjectOfType<AudioManager>().Play("Lose");
+                //CameraShake.Shakeit();
                 answer.gameObject.SetActive(true);
                 answer_statement.gameObject.SetActive(true);
             }
