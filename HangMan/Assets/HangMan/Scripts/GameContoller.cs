@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class GameContoller : MonoBehaviour
@@ -42,16 +40,14 @@ public class GameContoller : MonoBehaviour
     private int fails;
     private bool gameEnd = false;
 
-    private string[] wordsLocal;
+    [SerializeField]private string[] wordsLocal;
     //private string[] words = File.ReadAllLines(@"Assets/Files/Words.txt");
 
-   // private int[] myNums = { 3 , 5 , 7 , 8 };
-
+    // private int[] myNums = { 3 , 5 , 7 , 8 };
 
     private void Awake()
     {
         addscroll = GetComponent<AddObjectToList>();
-        prisonerNames = GetComponent<PrisonerNames>();
     }
 
 
@@ -77,14 +73,15 @@ public class GameContoller : MonoBehaviour
         //sound = GetComponent<SoundManagerScript>();
         //triesCheck = showGivenInput.text;
 
-        wordsLocal = prisonerNames.CurrentNames;
-
+        wordsLocal = prisonerNames.currentNames;
+        
         chosenWord = wordsLocal[Random.Range(0, wordsLocal.Length)];
+
         answer.text = chosenWord;
         //chosenWord = "MATT";
         int newVal = chosenWord.IndexOf("H");
         //Debug.Log(newVal);
-        for(int i = 0;i<chosenWord.Length;i++)
+        for (int i = 0; i < chosenWord.Length; i++)
         {
             char letter = chosenWord[i];
             //Debug.Log("This is"+i+ "th character " + chosenWord[i]);
@@ -117,6 +114,7 @@ public class GameContoller : MonoBehaviour
         if (gameEnd == false)
         {
             time += Time.deltaTime;
+            time = Mathf.Round(time * 100f) / 100f;
             timeField.text = time.ToString();
         }
 
@@ -124,8 +122,6 @@ public class GameContoller : MonoBehaviour
 
     public void Check()
     {
-        //Event e = Event.current;
-
         //if(e.type == EventType.KeyDown && e.keyCode.ToString().Length == 1)
         if(userInput.text.ToString().Length == 1)
         {

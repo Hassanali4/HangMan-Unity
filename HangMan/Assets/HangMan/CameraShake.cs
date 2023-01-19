@@ -18,13 +18,7 @@ public class CameraShake : MonoBehaviour
         StartCoroutine(Shake());
     }
 
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.T))
-        {
-            StartCoroutine(Shake());
-        }
-    }
+
     public IEnumerator Shake()
     {
         float elapsed = 0.0f;
